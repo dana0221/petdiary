@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "487346711173",
+    "project_id": "javadmp-81c91",
+    "storage_bucket": "javadmp-81c91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487346711173:android:7f59f1302298e9011e17ec",
+        "android_client_info": {
+          "package_name": "com.example.emirim.petdiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487346711173-l1015mhlfd4b58l68nlvj44s4r8tbl6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtGm11qVgPGBbqw0ny8obadW-gY762_uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487346711173-l1015mhlfd4b58l68nlvj44s4r8tbl6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

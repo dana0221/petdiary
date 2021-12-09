@@ -2,25 +2,60 @@ package com.example.emirim_java_petdiary;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
     ImageButton btn_home, btn_add_diary, btn_add_pet;
     Intent intent;
+    ListView list;
+
+    ArrayList data = new ArrayList();
+    ArrayList diary = new ArrayList();
+    ArrayList title = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_diary_list);
 
+        pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        editor = pref.edit();
+
+        title.add(pref.getString("제목",""));
+        setListView();
+
+        list = findViewById(R.id.list_diary);
         btn_home = findViewById(R.id.img_home_btn);
         btn_add_diary = findViewById(R.id.img_diary_btn);
         btn_add_pet = findViewById(R.id.img_add_pet_btn);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                intent = new Intent(getApplicationContext(), Diary.class);
+                intent.putExtra("받기", 1);
+                intent.putExtra("제목", pref.getString("제목", ""));
+                intent.putExtra("내용", pref.getString("내용", ""));
+                intent.putExtra("산책", pref.getInt("산책", 0));
+                intent.putExtra("밥", pref.getInt("밥", 0));
+                intent.putExtra("놀기", pref.getInt("놀기", 0));
+                startActivity(intent);
+            }
+        });
 
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,5 +80,13 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setListView(){
+        Intent intent = getIntent();
+
+        ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, title);
+        ListView listView = (ListView) findViewById(R.id.list_diary);
+        listView.setAdapter(listAdapter);
     }
 }

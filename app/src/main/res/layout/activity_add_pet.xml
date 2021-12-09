@@ -101,11 +101,13 @@
             android:layout_marginLeft="53dp">
 
             <RadioButton
+                android:id="@+id/man"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="남자"/>
 
             <RadioButton
+                android:id="@+id/woman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="여자"/>
@@ -220,7 +222,7 @@
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="등록하기"
+        android:text="저장"
         android:textSize="15sp"
         android:layout_marginTop="10dp"
         android:backgroundTint="#3F51B5"/>

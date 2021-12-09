@@ -36,27 +36,31 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class Diary extends AppCompatActivity {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     String titleDb;
     String noteDb;
-    int walkDb;
-    int feedDb;
-    int playDb;
+    String imgName;
+    boolean walkDb;
+    boolean feedDb;
+    boolean playDb;
 
 
     EditText title, note;
     ImageView imgv;
-    Button btnSave, btnPhoto, btnGallrey;
+    Button btnSave, btnGallrey;
     CheckBox checkWalk, checkPlay, checkFeed;
-    int feed = 0, play = 0, walk = 0;
     ImageButton btn_home, btn_add_diary, btn_add_pet;
     Intent intent;
 
@@ -80,10 +84,15 @@ public class Diary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-        tedPermission();
-
         pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
         editor = pref.edit();
+
+        titleDb = pref.getString("제목", "");
+        noteDb = pref.getString("내용", "");
+        walkDb = pref.getBoolean("산책", false);
+        feedDb = pref.getBoolean("밥", false);
+        playDb = pref.getBoolean("놀기", false);
+        imgName = pref.getString("사진", "");
 
         btnSave = findViewById(R.id.btn_save);
         btnGallrey = findViewById(R.id.btn_gallery);
@@ -97,6 +106,14 @@ public class Diary extends AppCompatActivity {
         btn_home = findViewById(R.id.img_home_btn);
         btn_add_diary = findViewById(R.id.img_diary_btn);
         btn_add_pet = findViewById(R.id.img_add_pet_btn);
+
+        title.setText(titleDb);
+        note.setText(noteDb);
+        checkWalk.setChecked(walkDb);
+        checkFeed.setChecked(feedDb);
+        checkPlay.setChecked(playDb);
+        Bitmap bm = BitmapFactory.decodeFile(tempFile.getAbsolutePath());
+        imgv.setImageBitmap(bm);
 
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,24 +155,17 @@ public class Diary extends AppCompatActivity {
             public void onClick(View v) {
                 titleDb = title.getText().toString();
                 editor.putString("제목", titleDb);
-                editor.apply();
 
                 noteDb = note.getText().toString();
                 editor.putString("내용", noteDb);
-                editor.apply();
 
-                walkDb = walk;
-                editor.putInt("산책", walkDb);
-                editor.apply();
+                editor.putBoolean("산책", checkWalk.isChecked());
 
-                feedDb = feed;
-                editor.putInt("밥", feedDb);
-                editor.apply();
+                editor.putBoolean("밥", checkFeed.isChecked());
 
-                playDb = play;
-                editor.putInt("놀기", playDb);
-                editor.apply();
+                editor.putBoolean("놀기", checkPlay.isChecked());
 
+                editor.apply();
                 Toast.makeText(getApplicationContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), DiaryList.class);
                 intent.putExtra("제목", title.getText().toString());
@@ -251,6 +261,7 @@ public class Diary extends AppCompatActivity {
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         Log.d(TAG, "createImageFile : " + image.getAbsolutePath());
 
+
         return image;
     }
 
@@ -262,6 +273,8 @@ public class Diary extends AppCompatActivity {
         Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
 
         imgv.setImageBitmap(originalBm);
+
+        editor.putString("사진", String.valueOf(options));
 
         tempFile = null;
     }
@@ -293,15 +306,12 @@ public class Diary extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.check_walk:
-                    feed = 1;
                     Toast.makeText(getApplicationContext(), "산책하기를 완료했습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.check_play:
-                    play = 1;
                     Toast.makeText(getApplicationContext(), "놀아주기 완료했습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.check_feed:
-                    feed = 1;
                     Toast.makeText(getApplicationContext(), "밥주기를 완료했습니다.", Toast.LENGTH_SHORT).show();
                     break;
             }
