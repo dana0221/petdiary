@@ -112,8 +112,6 @@ public class Diary extends AppCompatActivity {
         checkWalk.setChecked(walkDb);
         checkFeed.setChecked(feedDb);
         checkPlay.setChecked(playDb);
-        Bitmap bm = BitmapFactory.decodeFile(tempFile.getAbsolutePath());
-        imgv.setImageBitmap(bm);
 
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,7 +259,6 @@ public class Diary extends AppCompatActivity {
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         Log.d(TAG, "createImageFile : " + image.getAbsolutePath());
 
-
         return image;
     }
 
@@ -273,8 +270,8 @@ public class Diary extends AppCompatActivity {
         Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
 
         imgv.setImageBitmap(originalBm);
-
-        editor.putString("사진", String.valueOf(options));
+        editor.putString("사진", String.valueOf(tempFile));
+        editor.apply();
 
         tempFile = null;
     }

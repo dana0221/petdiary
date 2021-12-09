@@ -47,12 +47,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 intent = new Intent(getApplicationContext(), Diary.class);
-                intent.putExtra("받기", 1);
-                intent.putExtra("제목", pref.getString("제목", ""));
-                intent.putExtra("내용", pref.getString("내용", ""));
-                intent.putExtra("산책", pref.getInt("산책", 0));
-                intent.putExtra("밥", pref.getInt("밥", 0));
-                intent.putExtra("놀기", pref.getInt("놀기", 0));
                 startActivity(intent);
             }
         });
