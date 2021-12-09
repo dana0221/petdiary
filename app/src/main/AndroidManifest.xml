@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Emirim_java_petdiary">
         <activity
-            android:name=".Setting"
-            android:exported="true" />
-        <activity
             android:name=".DiaryList"
             android:exported="true" />
         <activity

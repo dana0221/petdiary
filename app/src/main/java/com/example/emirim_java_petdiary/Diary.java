@@ -3,6 +3,7 @@ package com.example.emirim_java_petdiary;
 import android.Manifest;
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -42,15 +43,21 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Diary extends AppCompatActivity {
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    String titleDb;
+    String noteDb;
+    int walkDb;
+    int feedDb;
+    int playDb;
+
+
     EditText title, note;
     ImageView imgv;
     Button btnSave, btnPhoto, btnGallrey;
     CheckBox checkWalk, checkPlay, checkFeed;
-    Data dbHelper;
-    Date nowDate;
     int feed = 0, play = 0, walk = 0;
-    SimpleDateFormat ft = new SimpleDateFormat("yyyy년 MM월 dd일");
-    ImageButton btn_home, btn_add_diary, btn_add_pet, btn_setting;
+    ImageButton btn_home, btn_add_diary, btn_add_pet;
     Intent intent;
 
     final private static String TAG = "petdiary";
@@ -75,8 +82,10 @@ public class Diary extends AppCompatActivity {
 
         tedPermission();
 
+        pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        editor = pref.edit();
+
         btnSave = findViewById(R.id.btn_save);
-        btnPhoto = findViewById(R.id.btn_photo);
         btnGallrey = findViewById(R.id.btn_gallery);
         title = findViewById(R.id.diary_title);
         note = findViewById(R.id.diary_note);
@@ -88,7 +97,6 @@ public class Diary extends AppCompatActivity {
         btn_home = findViewById(R.id.img_home_btn);
         btn_add_diary = findViewById(R.id.img_diary_btn);
         btn_add_pet = findViewById(R.id.img_add_pet_btn);
-        btn_setting = findViewById(R.id.img_setting_btn);
 
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,14 +122,6 @@ public class Diary extends AppCompatActivity {
             }
         });
 
-        btn_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), Diary.class);
-                startActivity(intent);
-            }
-        });
-
         btnGallrey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,21 +133,29 @@ public class Diary extends AppCompatActivity {
             }
         });
 
-        btnPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isPermission){
-                    takePhoto();
-                } else {
-                    Toast.makeText(view.getContext(), getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
-                } //end of if
-            }
-        });
-
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dbHelper.insert(title.getText().toString(), note.getText().toString(), feed, walk, play, nowDate.toString());
+                titleDb = title.getText().toString();
+                editor.putString("제목", titleDb);
+                editor.apply();
+
+                noteDb = note.getText().toString();
+                editor.putString("내용", noteDb);
+                editor.apply();
+
+                walkDb = walk;
+                editor.putInt("산책", walkDb);
+                editor.apply();
+
+                feedDb = feed;
+                editor.putInt("밥", feedDb);
+                editor.apply();
+
+                playDb = play;
+                editor.putInt("놀기", playDb);
+                editor.apply();
+
                 Toast.makeText(getApplicationContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), DiaryList.class);
                 intent.putExtra("제목", title.getText().toString());

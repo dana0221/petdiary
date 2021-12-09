@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
-    ImageButton btn_home, btn_add_diary, btn_add_pet, btn_setting;
+    ImageButton btn_home, btn_add_diary, btn_add_pet;
     Intent intent;
 
     @Override
@@ -21,7 +21,6 @@ public class Home extends AppCompatActivity {
         btn_home = findViewById(R.id.img_home_btn);
         btn_add_diary = findViewById(R.id.img_diary_btn);
         btn_add_pet = findViewById(R.id.img_add_pet_btn);
-        btn_setting = findViewById(R.id.img_setting_btn);
 
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +42,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getApplicationContext(), AddPet.class);
-                startActivity(intent);
-            }
-        });
-
-        btn_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), Diary.class);
                 startActivity(intent);
             }
         });

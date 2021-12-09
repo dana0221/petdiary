@@ -125,15 +125,7 @@
             android:layout_height="40dp"
             android:textSize="10sp"
             android:text="갤러리"
-            android:layout_marginRight="5dp"
-            android:backgroundTint="#3F51B5"/>
-
-        <Button
-            android:id="@+id/btn_photo"
-            android:layout_width="65dp"
-            android:layout_height="40dp"
-            android:textSize="10sp"
-            android:text="카메라"
+            android:layout_marginLeft="60dp"
             android:backgroundTint="#3F51B5"/>
 
     </LinearLayout>
@@ -195,7 +187,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/note"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="110dp"/>
+            android:layout_marginLeft="162dp"/>
 
         <ImageButton
             android:id="@+id/img_add_pet_btn"
@@ -207,19 +199,6 @@
             android:background="#00ff0000"
             android:scaleType="fitCenter"
             android:src="@drawable/add"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="210dp"/>
-
-        <ImageButton
-            android:id="@+id/img_setting_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
-            android:adjustViewBounds="true"
-            android:background="#00ff0000"
-            android:scaleType="fitCenter"
-            android:src="@drawable/setting"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="310dp"/>
     </FrameLayout>

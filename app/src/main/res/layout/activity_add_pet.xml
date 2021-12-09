@@ -255,7 +255,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/note"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="110dp"/>
+            android:layout_marginLeft="158dp"/>
 
         <ImageButton
             android:id="@+id/img_add_pet_btn"
@@ -267,19 +267,6 @@
             android:background="#00ff0000"
             android:scaleType="fitCenter"
             android:src="@drawable/add"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="210dp"/>
-
-        <ImageButton
-            android:id="@+id/img_setting_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
-            android:adjustViewBounds="true"
-            android:background="#00ff0000"
-            android:scaleType="fitCenter"
-            android:src="@drawable/setting"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="310dp"/>
     </FrameLayout>
